@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MenuMind AI</title>
+<style>
+:root{
+  --red:#e11d2e;
+  --dark:#0f172a;
+  --light:#f8fafc;
+  --grey:#cbd5e1;
+}
+
+/* RESET – FIX ALL SIDE GAPS */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI", Arial, sans-serif;
+}
+
+html,body{
+  width:100%;
+  overflow-x:hidden;
+}
+/* ================= LOGO ================= */
+.logo{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:0.4px;
+}
+
+/* MAIN TEXT */
+.logo-main{
+  color:#0f172a;
+  position:relative;
+}
+
+/* RED UNDERLINE ACCENT */
+.logo-main::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:36px;
+  height:3px;
+  background:#e11d2e;
+  border-radius:2px;
+}
+
+/* AI TEXT – RED & BOLD */
+.logo-ai{
+  color:#e11d2e;
+  font-weight:900;
+  font-size:22px;
+  letter-spacing:0.6px;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .logo{
+    font-size:22px;
+  }
+  .logo-ai{
+    font-size:20px;
+  }
+}
+/* ================= NAVBAR ENHANCED ================= */
+.navbar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background:#ffffff;
+  padding:18px 8%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  box-shadow:0 2px 14px rgba(0,0,0,0.08);
+}
+
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:26px;
+  align-items:center;
+}
+
+.nav-links li a{
+  text-decoration:none;
+  font-size:14px;
+  font-weight:800;
+  color:#111827;
+  transition:0.3s;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active{
+  color:#e11d2e;
+}
+
+/* CTA BUTTON */
+.nav-cta{
+  background:#e11d2e;
+  color:#fff !important;
+  padding:10px 20px;
+  border-radius:4px;
+  font-weight:900;
+}
+
+.nav-cta:hover{
+  background:#b31222;
+}
+
+/* MOBILE */
+.menu-toggle{
+  display:none;
+  font-size:26px;
+  cursor:pointer;
+  font-weight:900;
+}
+
+/* MOBILE MENU */
+@media(max-width:900px){
+  .menu-toggle{
+    display:block;
+  }
+
+  .nav-links{
+    position:absolute;
+    top:72px;
+    left:0;
+    width:100%;
+    background:#ffffff;
+    flex-direction:column;
+    gap:18px;
+    padding:26px 0;
+    display:none;
+  }
+
+  .nav-links.show{
+    display:flex;
+  }
+}
+
+
+/* ================= HERO ================= */
+.hero{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+  padding-top:90px;
+
+  /* 🔥 NEW RELEVANT IMAGE (RESTAURANT + ANALYTICS FEEL) */
+  background:
+    linear-gradient(
+      90deg,
+      rgba(15,23,42,0.97) 0%,
+      rgba(15,23,42,0.9) 45%,
+      rgba(15,23,42,0.55) 75%,
+      rgba(15,23,42,0.25) 100%
+    ),
+    url("https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=2200&auto=format&fit=crop");
+
+
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+
+  display:flex;
+  align-items:center;
+}
+
+/* SIDE BRAND TEXT */
+.side-text{
+  position:absolute;
+  left:32px;
+  top:50%;
+  transform:rotate(-90deg) translateY(-50%);
+  transform-origin:left top;
+  color:rgba(255,255,255,0.07);
+  font-size:64px;
+  font-weight:900;
+  letter-spacing:6px;
+  white-space:nowrap;
+}
+
+/* HERO CONTENT */
+.hero-content{
+  max-width:780px;
+  padding-left:8%;
+  padding-right:6%;
+  color:#ffffff;
+}
+
+.hero-eyebrow{
+  color:var(--red);
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:1.5px;
+  margin-bottom:18px;
+}
+
+.hero h1{
+  font-size:56px;
+  line-height:1.15;
+  margin-bottom:22px;
+}
+
+.hero h1 span{color:var(--red);}
+
+.hero p{
+  font-size:18.5px;
+  line-height:1.7;
+  color:var(--grey);
+  max-width:560px;
+  margin-bottom:38px;
+}
+
+.hero-actions{
+  display:flex;
+  gap:18px;
+}
+
+.btn-primary{
+  background:var(--red);
+  color:#fff;
+  padding:14px 36px;
+  font-weight:900;
+  text-decoration:none;
+  transition:.3s;
+}
+
+.btn-outline{
+  border:2px solid #fff;
+  color:#fff;
+  padding:14px 36px;
+  font-weight:900;
+  text-decoration:none;
+  transition:.3s;
+}
+
+.btn-primary:hover{background:#b31222;}
+.btn-outline:hover{background:#fff;color:#000;}
+
+/* ================= SECTIONS ================= */
+section:not(.hero){
+  padding:110px 8%;
+}
+
+section h2{
+  font-size:40px;
+  margin-bottom:20px;
+  color:var(--dark);
+}
+
+.section-text{
+  max-width:840px;
+  font-size:18px;
+  color:#334155;
+}
+
+/* ================= FEATURES ================= */
+.features{
+  background:var(--light);
+}
+
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:36px;
+  margin-top:60px;
+}
+
+.feature-card{
+  background:#ffffff;
+  padding:34px;
+  border-left:5px solid var(--red);
+  box-shadow:0 14px 40px rgba(0,0,0,0.08);
+}
+
+.feature-card h3{
+  margin-bottom:12px;
+  color:#111827;
+}
+
+.feature-card p{
+  color:#475569;
+  font-size:16px;
+}
+
+/* ================= CTA ================= */
+.cta{
+  background:linear-gradient(90deg,#020617,#0f172a);
+  color:#ffffff;
+  text-align:center;
+}
+
+.cta p{
+  color:#cbd5e1;
+  max-width:720px;
+  margin:0 auto 36px;
+  font-size:18px;
+}
+
+/* ================= FOOTER ================= */
+footer{
+  background:#020617;
+  color:#94a3b8;
+  text-align:center;
+  padding:24px;
+  font-size:14px;
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:900px){
+  .hero h1{font-size:36px;}
+  .hero-actions{flex-direction:column;}
+  .side-text{display:none;}
+}
+</style>
+</head>
+<script>
+/* MOBILE MENU TOGGLE */
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+
+menuToggle.addEventListener("click", () => {
+  navLinks.classList.toggle("show");
+});
+
+/* CLOSE MENU ON CLICK */
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("show");
+  });
+});
+
+/* ACTIVE LINK ON SCROLL */
+const sections = document.querySelectorAll("section");
+const navItems = document.querySelectorAll(".nav-links a");
+
+window.addEventListener("scroll", () => {
+  let current = "";
+
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 120;
+    if (scrollY >= sectionTop) {
+      current = section.getAttribute("id");
+    }
+  });
+
+  navItems.forEach(a => {
+    a.classList.remove("active");
+    if (a.getAttribute("href") === "#" + current) {
+      a.classList.add("active");
+    }
+  });
+});
+
+/* SMOOTH SCROLL */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function(e){
+    e.preventDefault();
+    document.querySelector(this.getAttribute("href"))
+      .scrollIntoView({ behavior: "smooth" });
+  });
+});
+</script>
+
+<body>
+
+<nav class="navbar">
+
+  <!-- LOGO -->
+  <div class="logo">
+    <span class="logo-main">MenuMind</span>
+    <span class="logo-ai">AI</span>
+  </div>
+
+  <!-- MOBILE TOGGLE -->
+  <div class="menu-toggle" id="menuToggle">
+    ☰
+  </div>
+
+  <!-- NAV LINKS -->
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#problems">Problems</a></li>
+    <li><a href="#who-for">Who It’s For</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#ethical-ai">Ethical AI</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+</nav>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      INTELLIGENT PRICING PLATFORM
+    </div>
+
+    <h1>
+      Intelligent <span>Menu Pricing</span><br>
+      That Thinks Like a Business Owner
+    </h1>
+
+    <p>
+      MenuMind AI is a UK-focused, AI-powered pricing platform built for
+      independent restaurants and small chains. It uses real-time data
+      ingredient costs, sales patterns, waste levels, local events, and demand
+      to recommend smarter menu prices that protect margins, reduce food waste,
+      and increase profitability without guesswork.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Get Early Access</a>
+      <a href="#features" class="btn-outline">See How It Works</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ================= ABOUT US ================= -->
+<section class="about-us" id="about">
+
+  <!-- SOFT LIGHT GLOW -->
+  <div class="about-glow"></div>
+
+  <!-- SECTION HEADING -->
+  <div class="about-title">
+    <span class="about-eyebrow">ABOUT MENUMIND AI</span>
+    <h2>
+      Built for Restaurants<br>
+      <span>Operating Under Pressure</span>
+    </h2>
+  </div>
+
+  <!-- ABOUT CONTENT -->
+  <div class="about-content">
+    <p>
+      <strong>MenuMind AI</strong> is a UK-focused, AI-powered pricing intelligence
+      platform designed to help restaurants survive and grow in an environment
+      of rising ingredient costs, volatile demand, and increasing food waste.
+    </p>
+
+    <p>
+      By combining <strong>real-time POS sales, ingredient costs, waste levels,
+      weather patterns, local events,</strong> and competitor pricing,
+      MenuMind AI delivers transparent menu price recommendations that
+      protect margins and improve operational confidence.
+    </p>
+  </div>
+
+  <!-- FOUNDERS -->
+  <div class="founders-section">
+    <h3>Founders</h3>
+
+    <div class="founders-grid">
+      <div class="founder-card">
+        <h4>Aravind Madaraju</h4>
+        <span>Operations · Finance · Commercial Execution</span>
+        <p>
+          Brings hands-on experience across UK hospitality and restaurant
+          operations, shaping MenuMind AI’s practical, profit-focused design.
+        </p>
+      </div>
+
+      <div class="founder-card">
+        <h4>Reddypally Akshay Kumar Goud</h4>
+        <span>Research · Strategy · Demand Behaviour</span>
+        <p>
+          Drives pricing research, demand modelling, and ethical AI principles
+          to ensure transparency and real-world decision support.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<style>
+/* ================= ABOUT US ================= */
+
+.about-us{
+  position:relative;
+  padding:80px 8%;
+  background:
+    radial-gradient(circle at top center, rgba(225,29,46,0.06), transparent 60%),
+    #fff9f9;
+  text-align:center;
+  overflow:hidden;
+}
+
+/* SOFT RED LIGHT */
+.about-glow{
+  position:absolute;
+  top:-120px;
+  left:50%;
+  transform:translateX(-50%);
+  width:520px;
+  height:220px;
+  background:radial-gradient(circle, rgba(225,29,46,0.18), transparent 70%);
+  filter:blur(60px);
+  z-index:0;
+}
+
+/* TITLE */
+.about-title{
+  position:relative;
+  z-index:1;
+  margin-bottom:30px;
+}
+
+.about-eyebrow{
+  display:inline-block;
+  font-size:13.5px;
+  font-weight:900;
+  letter-spacing:1.5px;
+  color:#e11d2e;
+  margin-bottom:12px;
+}
+
+.about-title h2{
+  font-size:44px;
+  line-height:1.15;
+  font-weight:900;
+  color:#0f172a;
+}
+
+.about-title h2 span{
+  color:#e11d2e;
+}
+
+/* CONTENT */
+.about-content{
+  max-width:900px;
+  margin:0 auto 26px;
+  position:relative;
+  z-index:1;
+}
+
+.about-content p{
+  font-size:18px;
+  line-height:1.75;
+  color:#334155;
+  margin-bottom:14px;
+  font-weight:500;
+}
+
+/* FOUNDERS */
+.founders-section{
+  position:relative;
+  z-index:1;
+}
+
+.founders-section h3{
+  font-size:32px;
+  font-weight:900;
+  color:#0f172a;
+  margin-bottom:24px;
+}
+
+.founders-grid{
+  max-width:1000px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:26px;
+}
+
+/* CARD */
+.founder-card{
+  background:#f8fafc;
+  padding:30px;
+  border-top:4px solid #e11d2e;
+  text-align:left;
+  box-shadow:0 12px 30px rgba(0,0,0,0.08);
+  transition:all 0.35s ease;
+}
+
+.founder-card:hover{
+  transform:translateY(-6px);
+  box-shadow:
+    0 22px 60px rgba(0,0,0,0.12),
+    0 0 0 1px rgba(225,29,46,0.15);
+}
+
+.founder-card h4{
+  font-size:20px;
+  font-weight:800;
+  color:#0f172a;
+  margin-bottom:6px;
+}
+
+.founder-card span{
+  display:block;
+  font-size:13px;
+  font-weight:800;
+  color:#e11d2e;
+  margin-bottom:12px;
+}
+
+.founder-card p{
+  font-size:16px;
+  line-height:1.6;
+  color:#475569;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .about-title h2{
+    font-size:32px;
+  }
+
+  .founders-grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+
+<script>
+console.log("About Us section with subtle lighting loaded");
+</script>
+
+<!-- ================= PROBLEMS WE SOLVE ================= -->
+<section class="problems" id="problems">
+
+  <div class="problems-head">
+    <span class="problems-tag">PROBLEMS WE SOLVE</span>
+    <h2>
+      Real Challenges Restaurants<br>
+      <span>Face Every Day</span>
+    </h2>
+    <p class="problems-intro">
+      Restaurants operate under constant pressure from rising costs,
+      unpredictable demand, and thin margins. MenuMind AI is built
+      to directly solve the most damaging problems holding operators back.
+    </p>
+  </div>
+
+  <div class="problems-grid">
+
+    <div class="problem-card">
+      <h4>Rising Ingredient Costs</h4>
+      <p>
+        Ingredient prices change frequently, but menus stay fixed for months.
+        This silently eats into margins and leaves operators reacting too late.
+      </p>
+    </div>
+
+    <div class="problem-card">
+      <h4>Food Waste & Spoilage</h4>
+      <p>
+        Lack of real-time insight causes over-prep, slow-moving items,
+        and unnecessary waste that directly turns into lost profit.
+      </p>
+    </div>
+
+    <div class="problem-card">
+      <h4>Unpredictable Demand</h4>
+      <p>
+        Weather, local events, festivals, and delivery trends shift demand daily,
+        yet pricing rarely adapts to match real conditions.
+      </p>
+    </div>
+
+    <div class="problem-card">
+      <h4>Intuition-Based Pricing</h4>
+      <p>
+        Most restaurants still rely on gut feeling or spreadsheets,
+        leading to missed revenue opportunities and pricing mistakes.
+      </p>
+    </div>
+
+    <div class="problem-card">
+      <h4>Fragmented Data Systems</h4>
+      <p>
+        POS data, costs, waste, and competitor prices live in separate tools,
+        making confident, data-driven decisions almost impossible.
+      </p>
+    </div>
+
+    <div class="problem-card">
+      <h4>Margin Pressure & Compliance</h4>
+      <p>
+        Regulatory waste rules and rising operational costs add pressure,
+        while operators lack tools to stay profitable and compliant.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+/* ================= PROBLEMS WE SOLVE ================= */
+
+.problems{
+  padding:60px 8%;
+  background:#fdf3f3;
+  text-align:center;
+}
+
+/* HEADER */
+.problems-head{
+  max-width:900px;
+  margin:0 auto 60px;
+}
+
+.problems-tag{
+  display:inline-block;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:1.4px;
+  color:#e11d2e;
+  margin-bottom:12px;
+}
+
+.problems-head h2{
+  font-size:44px;
+  line-height:1.2;
+  color:#0f172a;
+  font-weight:900;
+  margin-bottom:18px;
+}
+
+.problems-head h2 span{
+  color:#e11d2e;
+}
+
+.problems-intro{
+  font-size:18px;
+  line-height:1.75;
+  color:#334155;
+  font-weight:600;
+}
+
+/* GRID */
+.problems-grid{
+  max-width:1100px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:32px;
+}
+
+/* CARD */
+.problem-card{
+  background:#f8fafc;
+  padding:32px;
+  text-align:left;
+  border-top:4px solid #e11d2e;
+  box-shadow:0 14px 36px rgba(0,0,0,0.08);
+}
+
+.problem-card h4{
+  font-size:20px;
+  font-weight:800;
+  color:#0f172a;
+  margin-bottom:10px;
+}
+
+.problem-card p{
+  font-size:16px;
+  line-height:1.65;
+  color:#475569;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .problems-head h2{
+    font-size:32px;
+  }
+
+  .problems-grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+
+<script>
+console.log("Problems We Solve section loaded");
+</script>
+<!-- ================= WHO IT'S FOR ================= -->
+<section class="who-for" id="who-for">
+
+  <div class="who-overlay"></div>
+
+  <div class="who-content">
+
+    <span class="who-tag">WHO IT’S FOR</span>
+
+    <h2 class="who-title">
+      Running Restaurants<br>
+      <span>in the Real World</span>
+    </h2>
+
+    <p class="who-intro">
+      MenuMind AI is designed for operators who make pricing decisions under constant pressure balancing costs, demand, and customer trust every single day.
+It supports restaurants operating in fast-moving, unpredictable environments where ingredient prices fluctuate, demand shifts daily, and margins leave little room for error. By replacing guesswork with clear, data-driven recommendations, MenuMind AI helps operators stay confident, consistent, and in control even when conditions change hour by hour.
+    </p>
+
+    <div class="who-list">
+
+  <p>
+    <strong>Independent restaurant owners</strong> facing tight margins,
+    rising costs, and unpredictable demand.
+  </p>
+
+  <p>
+    <strong>Multi-site operators</strong> who need consistent,
+    data-backed pricing across locations.
+  </p>
+
+  <p>
+    <strong>Ethnic & speciality restaurants</strong> dealing with
+    volatile costs and complex demand patterns.
+  </p>
+
+  <p>
+    <strong>Finance & operations teams</strong> seeking transparent,
+    controllable, and explainable pricing decisions.
+  </p>
+
+  <p>
+    <strong>Forward-looking hospitality groups</strong> preparing for
+    dynamic, demand-aware pricing.
+  </p>
+
+</div>
+
+    <p class="who-footer">
+      Whether you operate a single kitchen or a growing portfolio,
+      MenuMind AI adapts to how <strong>you</strong> run your business
+      not the other way around.
+    </p>
+
+  </div>
+
+</section>
+
+<style>
+/* ================= WHO IT'S FOR ================= */
+
+.who-for{
+  position:relative;
+  padding:120px 8%;
+  background:
+    url("https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1800&auto=format&fit=crop")
+    center / cover no-repeat;
+}
+
+/* DARK OVERLAY */
+.who-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    180deg,
+    rgba(15,23,42,0.9),
+    rgba(2,6,23,0.95)
+  );
+}
+
+/* CONTENT */
+.who-content{
+  position:relative;
+  z-index:2;
+  max-width:900px;
+  margin:0 auto;
+  text-align:center;
+  color:#f8fafc; /* 🔑 WHITE BASE TEXT */
+}
+
+/* TAG */
+.who-tag{
+  display:inline-block;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:1.4px;
+  color:#e11d2e;
+  margin-bottom:16px;
+}
+
+/* TITLE */
+.who-title{
+  font-size:46px;
+  line-height:1.2;
+  font-weight:900;
+  margin-bottom:26px;
+  color:#ffffff; /* 🔑 WAS BLACK → NOW WHITE */
+}
+
+.who-title span{
+  color:#e11d2e;
+}
+
+/* INTRO */
+.who-intro{
+  font-size:18.5px;
+  line-height:1.75;
+  color:#e5e7eb; /* 🔑 LIGHT GREY */
+  max-width:760px;
+  margin:0 auto 36px;
+  font-weight:600;
+}
+
+/* LIST */
+.who-list{
+  max-width:760px;
+  margin:0 auto 36px;
+  text-align:left;
+}
+
+.who-list p{
+  font-size:17px;
+  line-height:1.7;
+  color:#f1f5f9; /* 🔑 WHITE TEXT */
+  margin-bottom:14px;
+}
+
+.who-list strong{
+  color:#e11d2e;
+  font-weight:800;
+}
+
+/* FOOTER */
+.who-footer{
+  font-size:17px;
+  line-height:1.7;
+  color:#cbd5e1;
+  max-width:760px;
+  margin:0 auto;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .who-for{
+    padding:90px 6%;
+  }
+
+  .who-title{
+    font-size:34px;
+  }
+
+  .who-list{
+    text-align:left;
+  }
+}
+</style>
+
+<script>
+console.log("Who It’s For section updated – white text + improved clarity");
+</script>
+<!-- ================= FEATURES ================= -->
+<section class="features-v2" id="features">
+
+  <!-- HEADING -->
+  <div class="features-head">
+    <span class="features-tag"> FEATURES</span>
+    <h2>
+      Powerful Intelligence<br>
+      <span>Built for Modern Restaurants</span>
+    </h2>
+    <p>
+      MenuMind AI equips restaurant owners with clear, data-backed pricing
+      intelligence to protect margins, reduce waste, and operate with confidence.
+    </p>
+  </div>
+
+  <!-- FEATURES GRID -->
+  <div class="features-cards">
+
+    <div class="feature-box">
+      <h3>Smart Menu Price Optimisation</h3>
+      <p>
+        AI continuously analyses sales, ingredient costs, and demand
+        to recommend optimal menu prices in real time.
+      </p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Demand & Footfall Forecasting</h3>
+      <p>
+        Anticipate busy periods using weather trends, seasonality,
+        time-of-day patterns, and local events.
+      </p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Waste Reduction Intelligence</h3>
+      <p>
+        Identify slow-moving dishes early and apply intelligent pricing
+        strategies to minimise spoilage.
+      </p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Competitor Price Awareness</h3>
+      <p>
+        Monitor nearby restaurant pricing to stay competitive
+        without sacrificing profitability.
+      </p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Scenario Planning & Simulations</h3>
+      <p>
+        Test pricing decisions for festivals, cost increases,
+        or demand spikes before applying them live.
+      </p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Transparent & Ethical AI Control</h3>
+      <p>
+        Full operator control with pricing guardrails,
+        explainable recommendations, and ethical AI design.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+/* ================= FEATURES V2 ================= */
+
+.features-v2{
+  padding:90px 8%;
+  background:#fff0f0;
+}
+
+/* HEADING */
+.features-head{
+  max-width:900px;
+  margin:0 auto 70px;
+  text-align:center;
+}
+
+.features-tag{
+  display:inline-block;
+  font-size:14px;
+  font-weight:900;
+  letter-spacing:1.4px;
+  color:#e11d2e;
+  margin-bottom:14px;
+}
+
+.features-head h2{
+  font-size:44px;
+  line-height:1.15;
+  font-weight:900;
+  color:#0f172a;
+  margin-bottom:20px;
+}
+
+.features-head h2 span{
+  color:#e11d2e;
+}
+
+.features-head p{
+  font-size:18.5px;
+  line-height:1.7;
+  color:#334155;
+  font-weight:600;
+}
+
+/* GRID */
+.features-cards{
+  max-width:1150px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:34px;
+}
+
+/* CARD */
+.feature-box{
+  background:#f8fafc;
+  padding:34px;
+  border-left:5px solid #e11d2e;
+  box-shadow:0 16px 40px rgba(0,0,0,0.08);
+  transition:all 0.3s ease;
+}
+
+.feature-box:hover{
+  transform:translateY(-6px);
+  box-shadow:0 26px 54px rgba(0,0,0,0.12);
+}
+
+.feature-box h3{
+  font-size:19px;
+  font-weight:900;
+  color:#0f172a;
+  margin-bottom:12px;
+}
+
+.feature-box p{
+  font-size:16.5px;
+  line-height:1.65;
+  color:#475569;
+}
+
+/* MOBILE */
+@media(max-width:1000px){
+  .features-cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:650px){
+  .features-v2{
+    padding:60px 6%;
+  }
+
+  .features-head h2{
+    font-size:32px;
+  }
+
+  .features-cards{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+
+<script>
+console.log("New bold Features section loaded");
+</script>
+<!-- ================= ETHICAL AI ================= -->
+<section class="ethical-ai" id="ethical-ai">
+
+  <div class="ethical-center">
+
+    <span class="ethical-tag">ETHICAL AI</span>
+
+    <h2>
+      Transparent AI,<br>
+      <span>Built for Human Decisions</span>
+    </h2>
+
+    <p class="ethical-lead">
+      MenuMind AI is designed to support restaurant owners
+      never to replace human judgement.
+    </p>
+
+    <p class="ethical-desc">
+      In an industry where margins are tight and decisions carry real
+      consequences, blind automation creates risk. MenuMind AI is built
+      differently. Every pricing recommendation is generated from
+      clearly defined inputs including sales trends, ingredient costs,
+      waste levels, and local demand signals.
+    </p>
+
+    <p class="ethical-desc">
+      Our platform shows <strong>why</strong> a price change is suggested,
+      not just <strong>what</strong> to change. Operators can review,
+      adjust, delay, or reject recommendations at any point, ensuring
+      pricing decisions remain accountable and aligned with business reality.
+    </p>
+
+    <p class="ethical-desc">
+      By avoiding black-box decision making, MenuMind AI builds trust,
+      protects margins responsibly, and helps restaurants reduce waste
+      without compromising customer fairness or operational control.
+    </p>
+
+  </div>
+
+</section>
+
+<style>
+/* ================= ETHICAL AI ================= */
+
+.ethical-ai{
+  padding:110px 8%;
+  background:#fff5f5;
+  text-align:center;
+}
+
+.ethical-center{
+  max-width:880px;
+  margin:0 auto;
+}
+
+/* TAG */
+.ethical-tag{
+  display:inline-block;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:1.4px;
+  color:#e11d2e;
+  margin-bottom:16px;
+}
+
+/* HEADING */
+.ethical-center h2{
+  font-size:44px;
+  line-height:1.2;
+  font-weight:900;
+  color:#0f172a;
+  margin-bottom:22px;
+}
+
+.ethical-center h2 span{
+  color:#e11d2e;
+}
+
+/* LEAD */
+.ethical-lead{
+  font-size:20px;
+  font-weight:800;
+  color:#000000;
+  margin-bottom:18px;
+}
+
+/* PARAGRAPH */
+.ethical-desc{
+  font-size:17.5px;
+  line-height:1.75;
+  color:#334155;
+  margin-bottom:14px;
+}
+
+/* POINTS */
+.ethical-points{
+  list-style:none;
+  padding:0;
+  margin:26px auto 0;
+  max-width:620px;
+  text-align:left;
+}
+
+.ethical-points li{
+  font-size:16.5px;
+  font-weight:700;
+  color:#0f172a;
+  margin-bottom:10px;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .ethical-ai{
+    padding:80px 6%;
+  }
+
+  .ethical-center h2{
+    font-size:32px;
+  }
+
+  .ethical-lead{
+    font-size:18px;
+  }
+}
+</style>
+
+<script>
+console.log("Ethical AI – centered layout loaded");
+</script>
+<!-- ================= CTA ================= -->
+<section class="cta" id="contact">
+
+  <!-- OVERLAY -->
+  <div class="cta-overlay"></div>
+
+  <div class="cta-content">
+
+    <span class="cta-eyebrow">GET EARLY ACCESS</span>
+
+    <h2>
+      Ready to <span>Price Smarter</span><br>
+      with MenuMind AI?
+    </h2>
+
+    <p>
+      Join early access and see how MenuMind AI helps restaurants
+      protect margins, reduce food waste, and make confident,
+      transparent pricing decisions using responsible AI.
+    </p>
+
+    <a href="mailto:menumindai@gmail.com?subject=Early Access Request"
+       class="cta-btn">
+      Request Early Access
+    </a>
+
+  </div>
+
+</section>
+
+<style>
+/* ================= CTA ================= */
+.cta{
+  position:relative;
+  width:100%;
+  padding:120px 8%;
+  background:
+    url("https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=1800&auto=format&fit=crop")
+    center / cover no-repeat;
+  overflow:hidden;
+}
+
+/* STRONG DARK OVERLAY */
+.cta-overlay{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(10,15,25,0.97) 0%,
+      rgba(10,15,25,0.92) 50%,
+      rgba(10,15,25,0.85) 100%
+    );
+  z-index:1;
+}
+
+/* CONTENT */
+.cta-content{
+  position:relative;
+  z-index:2;
+  max-width:860px;
+  margin:auto;
+  text-align:center;
+  color:#ffffff;
+}
+
+/* EYEBROW */
+.cta-eyebrow{
+  display:inline-block;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:1.6px;
+  color:#e11d2e;
+  margin-bottom:18px;
+}
+
+/* HEADING */
+.cta-content h2{
+  font-size:44px;
+  line-height:1.15;
+  font-weight:900;
+  margin-bottom:22px;
+  color:#ffffff; /* 🔑 force white */
+}
+
+.cta-content h2 span{
+  color:#e11d2e;
+}
+
+/* TEXT */
+.cta-content p{
+  font-size:18px;
+  line-height:1.75;
+  color:#f1f5f9; /* 🔑 bright readable white */
+  margin-bottom:42px;
+  font-weight:600;
+}
+
+/* BUTTON */
+.cta-btn{
+  display:inline-block;
+  padding:16px 52px;
+  background:#e11d2e;
+  color:#ffffff;
+  font-size:15px;
+  font-weight:900;
+  text-decoration:none;
+  border-radius:4px;
+  box-shadow:0 18px 50px rgba(225,29,46,0.45);
+  transition:0.3s ease;
+}
+
+.cta-btn:hover{
+  background:#b31222;
+  transform:translateY(-3px);
+  box-shadow:0 28px 80px rgba(225,29,46,0.6);
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .cta{
+    padding:80px 6%;
+  }
+
+  .cta-content h2{
+    font-size:32px;
+  }
+
+  .cta-content p{
+    font-size:16.5px;
+  }
+}
+</style>
+
+<script>
+console.log("CTA fixed: high contrast + readable text");
+</script>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 MenuMind AI · United Kingdom
+</footer>
+
+</body>
+</html>
